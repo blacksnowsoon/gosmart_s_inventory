@@ -1,1 +1,3 @@
 Gosmart S Inventory
+Inventory Masters
+Inventory Transactions
