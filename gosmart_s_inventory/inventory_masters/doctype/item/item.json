@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:ITM-{######}",
  "creation": "2025-06-28 10:43:12.234367",
@@ -82,7 +83,8 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-28 11:04:49.920135",
+ "make_attachments_public": 1,
+ "modified": "2025-06-28 13:45:35.122512",
  "modified_by": "Administrator",
  "module": "Inventory Masters",
  "name": "Item",
@@ -153,5 +155,6 @@
  "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "item_name"
 }

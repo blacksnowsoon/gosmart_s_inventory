@@ -35,3 +35,15 @@ frappe.ui.form.on("Stock Entry", {
         }
     }
 });
+
+frappe.ui.form.on("Stock Entry Item", {
+    item_code(frm, cdt, cdn) {
+        const row = locals[cdt][cdn];
+        if (row.item_code) {
+            frappe.db.get_value("Item", row.item_code, ["item_name", "uom"], (data) => {
+                frappe.model.set_value(cdt, cdn, "item_name", data.item_name);
+                frappe.model.set_value(cdt, cdn, "uom", data.uom);
+            });
+        }
+    }
+});

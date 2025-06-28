@@ -27,7 +27,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-28 10:40:15.569508",
+ "modified": "2025-06-28 13:03:42.486488",
  "modified_by": "Administrator",
  "module": "Inventory Masters",
  "name": "Unit",
@@ -95,6 +95,7 @@
    "share": 1
   }
  ],
+ "quick_entry": 1,
  "row_format": "Dynamic",
  "show_title_field_in_link": 1,
  "sort_field": "modified",
