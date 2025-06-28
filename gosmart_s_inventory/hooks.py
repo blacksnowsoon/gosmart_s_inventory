@@ -9,24 +9,49 @@ app_license = "mit"
 # ------------------
 
 # required_apps = []
-
+fixtures = [
+    "Translation",
+    "Website Settings",
+    "Navbar Settings",
+    "Print Settings",
+    "Navbar Settings",
+    {
+        "dt":"Role", "filters" : { 
+            "name":["in", [
+                "Inventory Viewer",
+                "Inventory User",
+                "Inventory Manager",
+                
+            ]]
+        }
+    },
+    {
+        "dt": "Custom DocPerm", "filters": {
+            "role": ["in", [
+                "Inventory Viewer",
+                "Inventory User",
+                "Inventory Manager",
+            ]]  
+        }
+    }
+]
 # Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "gosmart_s_inventory",
-# 		"logo": "/assets/gosmart_s_inventory/logo.png",
-# 		"title": "Gosmart S Inventory",
-# 		"route": "/gosmart_s_inventory",
+add_to_apps_screen = [
+	{
+		"name": "gosmart_s_inventory",
+		"logo": "/assets/gosmart_s_inventory/favicon-32x32.png",
+		"title": "Gosmart Simple Inventory Manager",
+		"route": "/",
 # 		"has_permission": "gosmart_s_inventory.api.permission.has_app_permission"
-# 	}
-# ]
+	}
+]
 
 # Includes in <head>
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/gosmart_s_inventory/css/gosmart_s_inventory.css"
-# app_include_js = "/assets/gosmart_s_inventory/js/gosmart_s_inventory.js"
+app_include_css = ["/assets/gosmart_s_inventory/css/gosmart_s_inventory.css"]
+app_include_js = ["/assets/gosmart_s_inventory/js/gosmart_s_inventory.js"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/gosmart_s_inventory/css/gosmart_s_inventory.css"
@@ -58,7 +83,7 @@ app_license = "mit"
 
 # application home page (will override Website Settings)
 # home_page = "login"
-
+home_page = "/home_page/"
 # website user home page (by Role)
 # role_home_page = {
 # 	"Role": "home_page"

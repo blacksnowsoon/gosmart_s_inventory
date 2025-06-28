@@ -1,168 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Inventory Management System - User Guide</title>
-    <!-- Bootstrap 4.6.2 CSS CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-            background-color: #f8f9fa; /* Light background */
-        }
-        .navbar {
-            background-color: #007bff; /* Frappe-like blue */
-            color: white;
-        }
-        .navbar-brand {
-            color: white !important;
-            font-weight: bold;
-        }
-        .sidebar {
-            background-color: #ffffff; /* White sidebar */
-            padding: 20px;
-            border-right: 1px solid #e9ecef;
-            min-height: calc(100vh - 56px); /* Full height minus navbar */
-            position: sticky;
-            top: 56px; /* Stick below navbar */
-        }
-        .sidebar .nav-link {
-            color: #495057;
-            padding: 8px 15px;
-            border-radius: 4px;
-            margin-bottom: 5px;
-        }
-        .sidebar .nav-link.active,
-        .sidebar .nav-link:hover {
-            background-color: #e9ecef;
-            color: #007bff;
-        }
-        .sidebar .nav-item.header {
-            font-weight: bold;
-            color: #007bff;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            padding-left: 10px;
-        }
-        .content {
-            padding: 30px;
-        }
-        .content h2, .content h3 {
-            color: #007bff;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e9ecef;
-        }
-        .card {
-            margin-bottom: 20px;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-        }
-        .card-header {
-            background-color: #f1f5f8; /* Lighter header for cards */
-            font-weight: bold;
-            color: #343a40;
-            border-bottom: 1px solid #e9ecef;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-        }
-        .alert-info {
-            background-color: #d1ecf1;
-            border-color: #bee5eb;
-            color: #0c5460;
-        }
-        code {
-            color: #e83e8c;
-            background-color: #f8f9fa;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-        pre code {
-            display: block;
-            padding: 10px;
-            background-color: #e9ecef;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
+{% extends "templates/web.html" %}
 
-        /* --- Flowchart Styles --- */
-        .flowchart {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-        .flowchart .step {
-            background-color: #e0f7fa; /* Light blue for steps */
-            border: 1px solid #00bcd4;
-            border-radius: 5px;
-            padding: 15px 25px;
-            margin: 10px 0;
-            text-align: center;
-            font-weight: bold;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-            position: relative;
-            min-width: 200px; /* Ensure steps are wide enough */
-        }
-        .flowchart .arrow {
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 15px solid #6c757d; /* Grey arrow */
-            margin: 0 auto;
-            position: relative;
-            z-index: 1; /* Ensure arrow is above other elements if needed */
-        }
-        .flowchart .arrow::after {
-            content: '';
-            position: absolute;
-            top: -25px; /* Position line above arrow head */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 25px; /* Length of the line */
-            background-color: #6c757d;
-        }
-        /* Remove line for the first arrow */
-        .flowchart .step:first-child + .arrow::after {
-            height: 0;
-        }
+{% block title %}{{ _("Simple Inventory Management") }}{% endblock %}
 
-        /* Specific styles for different step types if needed */
-        .flowchart .step.document {
-            background-color: #d4edda; /* Light green for documents */
-            border-color: #28a745;
-        }
-        .flowchart .step.action {
-            background-color: #fff3cd; /* Light yellow for actions */
-            border-color: #ffc107;
-        }
-        .flowchart .step.update {
-            background-color: #cfe2ff; /* Light blue for updates */
-            border-color: #0d6efd;
-        }
-
-        /* Chart container styling */
-        .chart-container {
-            position: relative;
-            height: 400px; /* Fixed height for charts */
-            width: 100%;
-            margin-bottom: 30px;
-        }
-        @media (max-width: 768px) {
-            .chart-container {
-                height: 300px; /* Smaller height on mobile */
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+{% block page_content %}
+<div class="scroll-progress"></div>
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <a class="navbar-brand" href="#">Simple Inventory Management System</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -189,553 +31,372 @@
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav> -->
+    <div class="row docs">
+        <nav class="col-md-3 col-lg-2 d-none d-md-block sidebar">
+            <div class="sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item header">Getting Started</li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#getting-started">Overview</a>
+                    </li>
+                    <li class="nav-item header">Inventory Masters</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#items">Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#warehouses">Warehouses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#suppliers">Suppliers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#customers">Customers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#units">Units (UOM)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#item-groups">Item Groups</a>
+                    </li>
+                    <li class="nav-item header">Commercial Documents</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#purchase-orders">Purchase Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#sales-orders">Sales Orders</a>
+                    </li>
+                    <li class="nav-item header">Inventory Transactions</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#stock-entries">Stock Entries</a>
+                    </li>
+                    <li class="nav-item header">Key Workflows</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#purchase-to-receipt-flow">Purchase to Receipt Flow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#sales-to-issue-flow">Sales to Issue Flow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#internal-stock-flow">Internal Stock Flow</a>
+                    </li>
+                    <li class="nav-item header">Data Visualization</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#stock-overview-chart">Stock Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#movement-trends-chart">Movement Trends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#order-status-charts">Order Status</a>
+                    </li>
+                    <li class="nav-item header">Reporting</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reporting">Accessing Reports</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-3 col-lg-2 d-none d-md-block sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item header">Getting Started</li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#getting-started">Overview</a>
-                        </li>
-                        <li class="nav-item header">Inventory Masters</li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#items">Items</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#warehouses">Warehouses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#suppliers">Suppliers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#customers">Customers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#units">Units (UOM)</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#item-groups">Item Groups</a>
-                        </li>
-                        <li class="nav-item header">Commercial Documents</li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#purchase-orders">Purchase Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sales-orders">Sales Orders</a>
-                        </li>
-                        <li class="nav-item header">Inventory Transactions</li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#stock-entries">Stock Entries</a>
-                        </li>
-                        <li class="nav-item header">Key Workflows</li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#purchase-to-receipt-flow">Purchase to Receipt Flow</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sales-to-issue-flow">Sales to Issue Flow</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#internal-stock-flow">Internal Stock Flow</a>
-                        </li>
-                        <li class="nav-item header">Data Visualization</li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#stock-overview-chart">Stock Overview</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#movement-trends-chart">Movement Trends</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#order-status-charts">Order Status</a>
-                        </li>
-                        <li class="nav-item header">Reporting</li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#reporting">Accessing Reports</a>
-                        </li>
-                    </ul>
+        <div role="main" class="col-md-9 ml-sm-auto col-lg-10 content">
+            <section id="getting-started">
+                <h2>Getting Started</h2>
+                <p class="lead">Welcome to the Simple Inventory Management System! This guide will help you understand and effectively use the application to manage your items, warehouses, purchases, sales, and stock movements.</p>
+                <div class="alert alert-info" role="alert">
+                    <strong>Tip:</strong> In Frappe, documents are often created in a "Draft" status and require "Submission" to finalize their impact on the system. Always ensure documents are submitted to reflect changes.
                 </div>
-            </nav>
+            </section>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 content">
-                <section id="getting-started">
-                    <h2>Getting Started</h2>
-                    <p class="lead">Welcome to the Simple Inventory Management System! This guide will help you understand and effectively use the application to manage your items, warehouses, purchases, sales, and stock movements.</p>
-                    <div class="alert alert-info" role="alert">
-                        <strong>Tip:</strong> In Frappe, documents are often created in a "Draft" status and require "Submission" to finalize their impact on the system. Always ensure documents are submitted to reflect changes.
-                    </div>
-                </section>
+            <section id="inventory-masters">
+                <h2>Inventory Masters</h2>
+                <p>Master data forms the foundation of your inventory system. These documents define the core entities you will be tracking and managing.</p>
 
-                <section id="inventory-masters">
-                    <h2>Inventory Masters</h2>
-                    <p>Master data forms the foundation of your inventory system. These documents define the core entities you will be tracking and managing.</p>
-
-                    <div class="card" id="items">
-                        <div class="card-header">Items</div>
-                        <div class="card-body">
-                            <p>The `Item` Doctype defines all the products or materials you manage in your inventory. Each item has a unique code and name, a unit of measure, and can be grouped for better organization.</p>
-                            <p><strong>Key Fields:</strong></p>
-                            <ul>
-                                <li><code>Item Code</code>: Unique identifier for the item.</li>
-                                <li><code>Item Name</code>: Display name of the item.</li>
-                                <li><code>Unit of Measure</code>: How the item is measured (e.g., Pcs, Kg).</li>
-                                <li><code>Item Group</code>: Category for the item (e.g., Raw Material, Finished Good).</li>
-                                <li><code>Current Stock</code>: Read-only field showing the current quantity available.</li>
-                            </ul>
-                            <p><strong>Usage:</strong> Create a new Item record for every distinct product or material you wish to track. Ensure all relevant details are filled accurately.</p>
-                        </div>
-                    </div>
-
-                    <div class="card" id="warehouses">
-                        <div class="card-header">Warehouses</div>
-                        <div class="card-body">
-                            <p>`Warehouse` records define the physical or logical locations where your inventory is stored. This allows you to track stock across different locations.</p>
-                            <p><strong>Key Fields:</strong></p>
-                            <ul>
-                                <li><code>Warehouse Name</code>: Name of the storage location.</li>
-                                <li><code>Address</code>: Physical address or description.</li>
-                                <li><code>Parent Warehouse</code>: For hierarchical structures (e.g., Main Warehouse > Shelf A).</li>
-                            </ul>
-                            <p><strong>Usage:</strong> Define all your storage locations. This could be a physical building, a specific shelf, or even a virtual location like "In Transit."</p>
-                        </div>
-                    </div>
-
-                    <div class="card" id="suppliers">
-                        <div class="card-header">Suppliers</div>
-                        <div class="card-body">
-                            <p>`Supplier` records store information about the entities from whom you purchase items.</p>
-                            <p><strong>Key Fields:</strong></p>
-                            <ul>
-                                <li><code>Supplier Name</code>: Name of the supplier.</li>
-                                <li><code>Contact Person</code>, <code>Email</code>, <code>Phone</code>, <code>Address</code>.</li>
-                            </ul>
-                            <p><strong>Usage:</strong> Create a Supplier record for each vendor you regularly buy from.</p>
-                        </div>
-                    </div>
-
-                    <div class="card" id="customers">
-                        <div class="card-header">Customers</div>
-                        <div class="card-body">
-                            <p>`Customer` records store information about the entities to whom you sell items.</p>
-                            <p><strong>Key Fields:</strong></p>
-                            <ul>
-                                <li><code>Customer Name</code>: Name of the customer.</li>
-                                <li><code>Contact Person</code>, <code>Email</code>, <code>Phone</code>, <code>Address</code>.</li>
-                            </ul>
-                            <p><strong>Usage:</strong> Create a Customer record for each client you regularly sell to.</p>
-                        </div>
-                    </div>
-
-                    <div class="card" id="units">
-                        <div class="card-header">Units (UOM)</div>
-                        <div class="card-body">
-                            <p>`Unit` (or Unit of Measure) defines the standard units used to quantify your items (e.g., "Pcs" for pieces, "Kg" for kilograms, "Ltr" for liters). Items are linked to these units.</p>
-                            <p><strong>Usage:</strong> Ensure all necessary units are defined before creating Items.</p>
-                        </div>
-                    </div>
-
-                    <div class="card" id="item-groups">
-                        <div class="card-header">Item Groups</div>
-                        <div class="card-body">
-                            <p>`Item Group` allows you to categorize your items into logical groups (e.g., "Raw Materials," "Finished Goods," "Packaging," "Consumables"). This helps in organizing and reporting.</p>
-                            <p><strong>Usage:</strong> Set up a logical hierarchy of item groups to classify your inventory effectively.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="commercial-documents">
-                    <h2>Commercial Documents</h2>
-                    <p>These documents represent your agreements and commitments to buy from suppliers or sell to customers. They precede the actual physical movement of goods.</p>
-
-                    <div class="card" id="purchase-orders">
-                        <div class="card-header">Purchase Orders</div>
-                        <div class="card-body">
-                            <p>A `Purchase Order` (PO) is a formal document sent to a supplier, indicating your intent to buy specific items at agreed-upon prices and terms. It does NOT affect inventory levels immediately.</p>
-                            <p><strong>Key Fields:</strong></p>
-                            <ul>
-                                <li><code>Supplier</code>: The vendor you are buying from.</li>
-                                <li><code>Order Date</code>: When the PO was created.</li>
-                                <li><code>Required By Date</code>: Expected delivery date.</li>
-                                <li><code>Items</code> table: Details of items, quantities, and rates.</li>
-                                <li><code>Status</code>: Tracks the PO's progress (e.g., To Receive, Received).</li>
-                            </ul>
-                            <p><strong>Usage:</strong> Create a PO whenever you commit to purchasing items. Once submitted, it acts as a record of your outstanding purchases.</p>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sales-orders">
-                        <div class="card-header">Sales Orders</div>
-                        <div class="card-body">
-                            <p>A `Sales Order` (SO) is a formal document confirming a sale to a customer, detailing the items, quantities, and prices. It does NOT affect inventory levels immediately.</p>
-                            <p><strong>Key Fields:</strong></p>
-                            <ul>
-                                <li><code>Customer</code>: The client you are selling to.</li>
-                                <li><code>Order Date</code>: When the SO was created.</li>
-                                <li><code>Delivery Date</code>: Expected delivery date.</li>
-                                <li><code>Items</code> table: Details of items, quantities, and rates.</li>
-                                <li><code>Status</code>: Tracks the SO's progress (e.g., To Deliver, Delivered).</li>
-                            </ul>
-                            <p><strong>Usage:</strong> Create an SO whenever you confirm a sale to a customer. Once submitted, it acts as a record of your outstanding sales.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="inventory-transactions">
-                    <h2>Inventory Transactions</h2>
-                    <p>These documents record the actual physical movement of items, directly impacting your inventory levels.</p>
-
-                    <div class="card" id="stock-entries">
-                        <div class="card-header">Stock Entries</div>
-                        <div class="card-body">
-                            <p>A `Stock Entry` is the primary document for recording all physical changes to your inventory. It is crucial for accurate stock tracking.</p>
-                            <p><strong>Key Field:</strong> <code>Entry Type</code> determines the nature of the stock movement:</p>
-                            <ul>
-                                <li><code>Material Receipt</code>: For items coming into a warehouse (e.g., from a supplier, initial stock).</li>
-                                <li><code>Material Issue</code>: For items leaving a warehouse (e.g., to a customer, for internal consumption).</li>
-                                <li><code>Stock Transfer</code>: For moving items between two warehouses.</li>
-                                <li><code>Stock Adjustment</code>: For correcting inventory discrepancies (e.g., after a physical count).</li>
-                            </ul>
-                            <p><strong>Key Fields:</strong></p>
-                            <ul>
-                                <li><code>Posting Date/Time</code>: When the movement occurred.</li>
-                                <li><code>From Warehouse</code>: Where stock is moving *from* (for Issue, Transfer).</li>
-                                <li><code>To Warehouse</code>: Where stock is moving *to* (for Receipt, Transfer, Adjustment).</li>
-                                <li><code>Items</code> table: Details of items and quantities involved.</li>
-                                <li><code>Reference Document Type/Name</code>: Links to a Purchase Order or Sales Order if applicable.</li>
-                            </ul>
-                            <p><strong>Usage:</strong> Always create a Stock Entry for any physical movement of goods. Submitting a Stock Entry will update the `Current Stock` on the respective Item records.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="workflows">
-                    <h2>Key Business Workflows</h2>
-                    <p>Understanding these workflows is essential for efficient inventory management. They illustrate how different documents interact to complete a business process.</p>
-
-                    <div class="card" id="purchase-to-receipt-flow">
-                        <div class="card-header">Purchase to Material Receipt Flow</div>
-                        <div class="card-body">
-                            <p>This flow describes the process from ordering goods to receiving them into your inventory.</p>
-                            <div class="flowchart">
-                                <div class="step action">Create Purchase Order</div>
-                                <div class="arrow"></div>
-                                <div class="step document">Purchase Order (PO)</div>
-                                <div class="arrow"></div>
-                                <div class="step action">Supplier Ships Goods</div>
-                                <div class="arrow"></div>
-                                <div class="step action">Create Stock Entry (Material Receipt)</div>
-                                <div class="arrow"></div>
-                                <div class="step document">Stock Entry (Material Receipt)</div>
-                                <div class="arrow"></div>
-                                <div class="step update">Inventory Updated<br>(Stock In)</div>
-                                <div class="arrow"></div>
-                                <div class="step update">PO Status Updated</div>
-                            </div>
-                            <p><strong>Detailed Steps:</strong></p>
-                            <ol>
-                                <li>A `Purchase Order` is created and submitted to commit to buying items from a supplier.</li>
-                                <li>When the goods physically arrive, a `Stock Entry` of type `Material Receipt` is created, typically by fetching items from the relevant `Purchase Order`.</li>
-                                <li>Submitting the `Material Receipt` increases the stock quantity of the received items in the designated warehouse and updates the `received_qty` on the `Purchase Order` items.</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sales-to-issue-flow">
-                        <div class="card-header">Sales Order to Material Issue Flow</div>
-                        <div class="card-body">
-                            <p>This flow describes the process from confirming a sale to issuing goods from your inventory.</p>
-                            <div class="flowchart">
-                                <div class="step action">Create Sales Order</div>
-                                <div class="arrow"></div>
-                                <div class="step document">Sales Order (SO)</div>
-                                <div class="arrow"></div>
-                                <div class="step action">Prepare & Ship Goods</div>
-                                <div class="arrow"></div>
-                                <div class="step action">Create Stock Entry (Material Issue)</div>
-                                <div class="arrow"></div>
-                                <div class="step document">Stock Entry (Material Issue)</div>
-                                <div class="arrow"></div>
-                                <div class="step update">Inventory Updated<br>(Stock Out)</div>
-                                <div class="arrow"></div>
-                                <div class="step update">SO Status Updated</div>
-                            </div>
-                            <p><strong>Detailed Steps:</strong></p>
-                            <ol>
-                                <li>A `Sales Order` is created and submitted to confirm a sale to a customer.</li>
-                                <li>When the goods are prepared for shipment, a `Stock Entry` of type `Material Issue` is created, typically by fetching items from the relevant `Sales Order`.</li>
-                                <li>Submitting the `Material Issue` decreases the stock quantity of the issued items from the designated warehouse and updates the `delivered_qty` on the `Sales Order` items.</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="card" id="internal-stock-flow">
-                        <div class="card-header">Internal Stock Management Flow (Adjustments & Transfers)</div>
-                        <div class="card-body">
-                            <p>This flow covers internal movements and corrections within your inventory.</p>
-                            <div class="flowchart">
-                                <div class="step action">Identify Need for Adjustment/Transfer</div>
-                                <div class="arrow"></div>
-                                <div class="step action">Create Stock Entry</div>
-                                <div class="arrow"></div>
-                                <div class="step document">Stock Entry<br>(Type: Adjustment or Transfer)</div>
-                                <div class="arrow"></div>
-                                <div class="step update">Inventory Updated<br>(Quantity/Location Change)</div>
-                            </div>
-                            <p><strong>Detailed Steps:</strong></p>
-                            <ol>
-                                <li>**Stock Adjustment:** Used to correct inventory quantities (e.g., after a physical count, for damaged goods). A `Stock Entry` with `Entry Type` as `Stock Adjustment` is created, specifying the `To Warehouse` and the positive or negative quantity change for each item.</li>
-                                <li>**Stock Transfer:** Used to move items between two warehouses. A `Stock Entry` with `Entry Type` as `Stock Transfer` is created, specifying both the `From Warehouse` and `To Warehouse`, along with the items and quantities.</li>
-                                <li>Submitting these `Stock Entries` directly updates the inventory levels in the specified warehouses.</li>
-                            </ol>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="data-visualization">
-                    <h2>Data Visualization</h2>
-                    <p>Gain quick insights into your inventory data through these illustrative charts.</p>
-
-                    <div class="card" id="stock-overview-chart">
-                        <div class="card-header">Current Stock Value by Item Group (Illustrative)</div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="stockValueByItemGroupChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="movement-trends-chart">
-                        <div class="card-header">Monthly Stock Movements (Illustrative)</div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="monthlyStockMovementChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="order-status-charts">
-                        <div class="card-header">Order Status Breakdown (Illustrative)</div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4>Purchase Order Status</h4>
-                                    <div class="chart-container">
-                                        <canvas id="poStatusChart"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <h4>Sales Order Status</h4>
-                                    <div class="chart-container">
-                                        <canvas id="soStatusChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="reporting">
-                    <h2>Reporting</h2>
-                    <p>The system provides various reports to give you insights into your inventory.</p>
-                    <p>To access reports:</p>
-                    <ol>
-                        <li>Navigate to the "Reports" section in your Frappe Desk.</li>
-                        <li>Look for reports related to Inventory, such as:</li>
+                <div class="card" id="items">
+                    <div class="card-header">Items</div>
+                    <div class="card-body">
+                        <p>The `Item` Doctype defines all the products or materials you manage in your inventory. Each item has a unique code and name, a unit of measure, and can be grouped for better organization.</p>
+                        <p><strong>Key Fields:</strong></p>
                         <ul>
-                            <li>**Stock Balance Report:** Shows current stock levels per item and warehouse.</li>
-                            <li>**Stock Ledger:** Provides a detailed history of all stock movements for a specific item.</li>
-                            <li>**Open Purchase Orders:** Lists all POs that are not yet fully received.</li>
-                            <li>**Open Sales Orders:** Lists all SOs that are not yet fully delivered.</li>
+                            <li><code>Item Code</code>: Unique identifier for the item.</li>
+                            <li><code>Item Name</code>: Display name of the item.</li>
+                            <li><code>Unit of Measure</code>: How the item is measured (e.g., Pcs, Kg).</li>
+                            <li><code>Item Group</code>: Category for the item (e.g., Raw Material, Finished Good).</li>
+                            <li><code>Current Stock</code>: Read-only field showing the current quantity available.</li>
                         </ul>
-                        <li>Use the filters within each report to refine your data.</li>
-                    </ol>
-                </section>
+                        <p><strong>Usage:</strong> Create a new Item record for every distinct product or material you wish to track. Ensure all relevant details are filled accurately.</p>
+                    </div>
+                </div>
 
-                <footer class="text-center text-muted py-4 mt-5 border-top">
-                    <p>&copy; 2025 Simple Inventory Management System. All rights reserved.</p>
-                </footer>
-            </main>
+                <div class="card" id="warehouses">
+                    <div class="card-header">Warehouses</div>
+                    <div class="card-body">
+                        <p>`Warehouse` records define the physical or logical locations where your inventory is stored. This allows you to track stock across different locations.</p>
+                        <p><strong>Key Fields:</strong></p>
+                        <ul>
+                            <li><code>Warehouse Name</code>: Name of the storage location.</li>
+                            <li><code>Address</code>: Physical address or description.</li>
+                            <li><code>Parent Warehouse</code>: For hierarchical structures (e.g., Main Warehouse > Shelf A).</li>
+                        </ul>
+                        <p><strong>Usage:</strong> Define all your storage locations. This could be a physical building, a specific shelf, or even a virtual location like "In Transit."</p>
+                    </div>
+                </div>
+
+                <div class="card" id="suppliers">
+                    <div class="card-header">Suppliers</div>
+                    <div class="card-body">
+                        <p>`Supplier` records store information about the entities from whom you purchase items.</p>
+                        <p><strong>Key Fields:</strong></p>
+                        <ul>
+                            <li><code>Supplier Name</code>: Name of the supplier.</li>
+                            <li><code>Contact Person</code>, <code>Email</code>, <code>Phone</code>, <code>Address</code>.</li>
+                        </ul>
+                        <p><strong>Usage:</strong> Create a Supplier record for each vendor you regularly buy from.</p>
+                    </div>
+                </div>
+
+                <div class="card" id="customers">
+                    <div class="card-header">Customers</div>
+                    <div class="card-body">
+                        <p>`Customer` records store information about the entities to whom you sell items.</p>
+                        <p><strong>Key Fields:</strong></p>
+                        <ul>
+                            <li><code>Customer Name</code>: Name of the customer.</li>
+                            <li><code>Contact Person</code>, <code>Email</code>, <code>Phone</code>, <code>Address</code>.</li>
+                        </ul>
+                        <p><strong>Usage:</strong> Create a Customer record for each client you regularly sell to.</p>
+                    </div>
+                </div>
+
+                <div class="card" id="units">
+                    <div class="card-header">Units (UOM)</div>
+                    <div class="card-body">
+                        <p>`Unit` (or Unit of Measure) defines the standard units used to quantify your items (e.g., "Pcs" for pieces, "Kg" for kilograms, "Ltr" for liters). Items are linked to these units.</p>
+                        <p><strong>Usage:</strong> Ensure all necessary units are defined before creating Items.</p>
+                    </div>
+                </div>
+
+                <div class="card" id="item-groups">
+                    <div class="card-header">Item Groups</div>
+                    <div class="card-body">
+                        <p>`Item Group` allows you to categorize your items into logical groups (e.g., "Raw Materials," "Finished Goods," "Packaging," "Consumables"). This helps in organizing and reporting.</p>
+                        <p><strong>Usage:</strong> Set up a logical hierarchy of item groups to classify your inventory effectively.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="commercial-documents">
+                <h2>Commercial Documents</h2>
+                <p>These documents represent your agreements and commitments to buy from suppliers or sell to customers. They precede the actual physical movement of goods.</p>
+
+                <div class="card" id="purchase-orders">
+                    <div class="card-header">Purchase Orders</div>
+                    <div class="card-body">
+                        <p>A `Purchase Order` (PO) is a formal document sent to a supplier, indicating your intent to buy specific items at agreed-upon prices and terms. It does NOT affect inventory levels immediately.</p>
+                        <p><strong>Key Fields:</strong></p>
+                        <ul>
+                            <li><code>Supplier</code>: The vendor you are buying from.</li>
+                            <li><code>Order Date</code>: When the PO was created.</li>
+                            <li><code>Required By Date</code>: Expected delivery date.</li>
+                            <li><code>Items</code> table: Details of items, quantities, and rates.</li>
+                            <li><code>Status</code>: Tracks the PO's progress (e.g., To Receive, Received).</li>
+                        </ul>
+                        <p><strong>Usage:</strong> Create a PO whenever you commit to purchasing items. Once submitted, it acts as a record of your outstanding purchases.</p>
+                    </div>
+                </div>
+
+                <div class="card" id="sales-orders">
+                    <div class="card-header">Sales Orders</div>
+                    <div class="card-body">
+                        <p>A `Sales Order` (SO) is a formal document confirming a sale to a customer, detailing the items, quantities, and prices. It does NOT affect inventory levels immediately.</p>
+                        <p><strong>Key Fields:</strong></p>
+                        <ul>
+                            <li><code>Customer</code>: The client you are selling to.</li>
+                            <li><code>Order Date</code>: When the SO was created.</li>
+                            <li><code>Delivery Date</code>: Expected delivery date.</li>
+                            <li><code>Items</code> table: Details of items, quantities, and rates.</li>
+                            <li><code>Status</code>: Tracks the SO's progress (e.g., To Deliver, Delivered).</li>
+                        </ul>
+                        <p><strong>Usage:</strong> Create an SO whenever you confirm a sale to a customer. Once submitted, it acts as a record of your outstanding sales.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="inventory-transactions">
+                <h2>Inventory Transactions</h2>
+                <p>These documents record the actual physical movement of items, directly impacting your inventory levels.</p>
+
+                <div class="card" id="stock-entries">
+                    <div class="card-header">Stock Entries</div>
+                    <div class="card-body">
+                        <p>A `Stock Entry` is the primary document for recording all physical changes to your inventory. It is crucial for accurate stock tracking.</p>
+                        <p><strong>Key Field:</strong> <code>Entry Type</code> determines the nature of the stock movement:</p>
+                        <ul>
+                            <li><code>Material Receipt</code>: For items coming into a warehouse (e.g., from a supplier, initial stock).</li>
+                            <li><code>Material Issue</code>: For items leaving a warehouse (e.g., to a customer, for internal consumption).</li>
+                            <li><code>Stock Transfer</code>: For moving items between two warehouses.</li>
+                            <li><code>Stock Adjustment</code>: For correcting inventory discrepancies (e.g., after a physical count).</li>
+                        </ul>
+                        <p><strong>Key Fields:</strong></p>
+                        <ul>
+                            <li><code>Posting Date/Time</code>: When the movement occurred.</li>
+                            <li><code>From Warehouse</code>: Where stock is moving *from* (for Issue, Transfer).</li>
+                            <li><code>To Warehouse</code>: Where stock is moving *to* (for Receipt, Transfer, Adjustment).</li>
+                            <li><code>Items</code> table: Details of items and quantities involved.</li>
+                            <li><code>Reference Document Type/Name</code>: Links to a Purchase Order or Sales Order if applicable.</li>
+                        </ul>
+                        <p><strong>Usage:</strong> Always create a Stock Entry for any physical movement of goods. Submitting a Stock Entry will update the `Current Stock` on the respective Item records.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="workflows">
+                <h2>Key Business Workflows</h2>
+                <p>Understanding these workflows is essential for efficient inventory management. They illustrate how different documents interact to complete a business process.</p>
+
+                <div class="card" id="purchase-to-receipt-flow">
+                    <div class="card-header">Purchase to Material Receipt Flow</div>
+                    <div class="card-body">
+                        <p>This flow describes the process from ordering goods to receiving them into your inventory.</p>
+                        <div class="flowchart">
+                            <div class="step action">Create Purchase Order</div>
+                            <div class="arrow"></div>
+                            <div class="step document">Purchase Order (PO)</div>
+                            <div class="arrow"></div>
+                            <div class="step action">Supplier Ships Goods</div>
+                            <div class="arrow"></div>
+                            <div class="step action">Create Stock Entry (Material Receipt)</div>
+                            <div class="arrow"></div>
+                            <div class="step document">Stock Entry (Material Receipt)</div>
+                            <div class="arrow"></div>
+                            <div class="step update">Inventory Updated<br>(Stock In)</div>
+                            <div class="arrow"></div>
+                            <div class="step update">PO Status Updated</div>
+                        </div>
+                        <p><strong>Detailed Steps:</strong></p>
+                        <ol>
+                            <li>A `Purchase Order` is created and submitted to commit to buying items from a supplier.</li>
+                            <li>When the goods physically arrive, a `Stock Entry` of type `Material Receipt` is created, typically by fetching items from the relevant `Purchase Order`.</li>
+                            <li>Submitting the `Material Receipt` increases the stock quantity of the received items in the designated warehouse and updates the `received_qty` on the `Purchase Order` items.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card" id="sales-to-issue-flow">
+                    <div class="card-header">Sales Order to Material Issue Flow</div>
+                    <div class="card-body">
+                        <p>This flow describes the process from confirming a sale to issuing goods from your inventory.</p>
+                        <div class="flowchart">
+                            <div class="step action">Create Sales Order</div>
+                            <div class="arrow"></div>
+                            <div class="step document">Sales Order (SO)</div>
+                            <div class="arrow"></div>
+                            <div class="step action">Prepare & Ship Goods</div>
+                            <div class="arrow"></div>
+                            <div class="step action">Create Stock Entry (Material Issue)</div>
+                            <div class="arrow"></div>
+                            <div class="step document">Stock Entry (Material Issue)</div>
+                            <div class="arrow"></div>
+                            <div class="step update">Inventory Updated<br>(Stock Out)</div>
+                            <div class="arrow"></div>
+                            <div class="step update">SO Status Updated</div>
+                        </div>
+                        <p><strong>Detailed Steps:</strong></p>
+                        <ol>
+                            <li>A `Sales Order` is created and submitted to confirm a sale to a customer.</li>
+                            <li>When the goods are prepared for shipment, a `Stock Entry` of type `Material Issue` is created, typically by fetching items from the relevant `Sales Order`.</li>
+                            <li>Submitting the `Material Issue` decreases the stock quantity of the issued items from the designated warehouse and updates the `delivered_qty` on the `Sales Order` items.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="card" id="internal-stock-flow">
+                    <div class="card-header">Internal Stock Management Flow (Adjustments & Transfers)</div>
+                    <div class="card-body">
+                        <p>This flow covers internal movements and corrections within your inventory.</p>
+                        <div class="flowchart">
+                            <div class="step action">Identify Need for Adjustment/Transfer</div>
+                            <div class="arrow"></div>
+                            <div class="step action">Create Stock Entry</div>
+                            <div class="arrow"></div>
+                            <div class="step document">Stock Entry<br>(Type: Adjustment or Transfer)</div>
+                            <div class="arrow"></div>
+                            <div class="step update">Inventory Updated<br>(Quantity/Location Change)</div>
+                        </div>
+                        <p><strong>Detailed Steps:</strong></p>
+                        <ol>
+                            <li>**Stock Adjustment:** Used to correct inventory quantities (e.g., after a physical count, for damaged goods). A `Stock Entry` with `Entry Type` as `Stock Adjustment` is created, specifying the `To Warehouse` and the positive or negative quantity change for each item.</li>
+                            <li>**Stock Transfer:** Used to move items between two warehouses. A `Stock Entry` with `Entry Type` as `Stock Transfer` is created, specifying both the `From Warehouse` and `To Warehouse`, along with the items and quantities.</li>
+                            <li>Submitting these `Stock Entries` directly updates the inventory levels in the specified warehouses.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section id="data-visualization">
+                <h2>Data Visualization</h2>
+                <p>Gain quick insights into your inventory data through these illustrative charts.</p>
+
+                <div class="card" id="stock-overview-chart">
+                    <div class="card-header">Current Stock Value by Item Group (Illustrative)</div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="stockValueByItemGroupChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="movement-trends-chart">
+                    <div class="card-header">Monthly Stock Movements (Illustrative)</div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <canvas id="monthlyStockMovementChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="order-status-charts">
+                    <div class="card-header">Order Status Breakdown (Illustrative)</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Purchase Order Status</h4>
+                                <div class="chart-container">
+                                    <canvas id="poStatusChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>Sales Order Status</h4>
+                                <div class="chart-container">
+                                    <canvas id="soStatusChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- <section id="reporting">
+                <h2>Reporting</h2>
+                <p>The system provides various reports to give you insights into your inventory.</p>
+                <p>To access reports:</p>
+                <ol>
+                    <li>Navigate to the "Reports" section in your Frappe Desk.</li>
+                    <li>Look for reports related to Inventory, such as:</li>
+                    <ul>
+                        <li>**Stock Balance Report:** Shows current stock levels per item and warehouse.</li>
+                        <li>**Stock Ledger:** Provides a detailed history of all stock movements for a specific item.</li>
+                        <li>**Open Purchase Orders:** Lists all POs that are not yet fully received.</li>
+                        <li>**Open Sales Orders:** Lists all SOs that are not yet fully delivered.</li>
+                    </ul>
+                    <li>Use the filters within each report to refine your data.</li>
+                </ol>
+            </section> -->
+
+            
+        </d>
         </div>
-    </div>
 
-    <!-- jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5P512" crossorigin="anonymous"></script>
+    <div>>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
 
-    <script>
-        // Initialize Bootstrap Scrollspy for active sidebar links
-        // Needs to be initialized after content is loaded
-        $(document).ready(function() {
-            $('body').scrollspy({
-                target: '.sidebar',
-                offset: 80 // Adjust offset based on navbar height
-            });
-
-            // Smooth scrolling for sidebar links and top navbar links
-            $('a.nav-link[href^="#"]').on('click', function(event) {
-                if (this.hash !== "") {
-                    event.preventDefault();
-                    var hash = this.hash;
-                    $('html, body').animate({
-                        scrollTop: $(hash).offset().top - 70 // Adjust for fixed navbar height
-                    }, 800, function(){
-                        window.location.hash = hash;
-                    });
-                }
-            });
-
-            // --- Chart.js Initialization with Dummy Data ---
-
-            // Chart 1: Stock Value by Item Group (Bar Chart)
-            var ctx1 = document.getElementById('stockValueByItemGroupChart').getContext('2d');
-            new Chart(ctx1, {
-                type: 'bar',
-                data: {
-                    labels: ['Raw Materials', 'Finished Goods', 'Packaging', 'Consumables'],
-                    datasets: [{
-                        label: 'Stock Value ($)',
-                        data: [12000, 18000, 5000, 2500],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.7)',
-                            'rgba(54, 162, 235, 0.7)',
-                            'rgba(255, 206, 86, 0.7)',
-                            'rgba(75, 192, 192, 0.7)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                callback: function(value, index, values) {
-                                    return '$' + value;
-                                }
-                            }
-                        }]
-                    },
-                    legend: { display: false },
-                    title: {
-                        display: true,
-                        text: 'Current Stock Value by Item Group'
-                    }
-                }
-            });
-
-            // Chart 2: Monthly Stock Movements (Line Chart)
-            var ctx2 = document.getElementById('monthlyStockMovementChart').getContext('2d');
-            new Chart(ctx2, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                    datasets: [
-                        {
-                            label: 'Material Receipts',
-                            data: [1500, 1800, 1200, 2000, 2500, 1900],
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            fill: true,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'Material Issues',
-                            data: [1000, 1300, 1500, 1800, 2200, 1700],
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            fill: true,
-                            tension: 0.1
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    },
-                    title: {
-                        display: true,
-                        text: 'Monthly Stock Movements (Quantity)'
-                    }
-                }
-            });
-
-            // Chart 3: Purchase Order Status (Doughnut Chart)
-            var ctx3 = document.getElementById('poStatusChart').getContext('2d');
-            new Chart(ctx3, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Received', 'To Receive', 'Cancelled'],
-                    datasets: [{
-                        data: [70, 20, 10], // Dummy percentages
-                        backgroundColor: [
-                            'rgba(40, 167, 69, 0.7)', // Green
-                            'rgba(255, 193, 7, 0.7)',  // Yellow
-                            'rgba(108, 117, 125, 0.7)' // Grey
-                        ],
-                        borderColor: [
-                            'rgba(40, 167, 69, 1)',
-                            'rgba(255, 193, 7, 1)',
-                            'rgba(108, 117, 125, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    title: {
-                        display: true,
-                        text: 'Purchase Order Status Breakdown'
-                    }
-                }
-            });
-
-            // Chart 4: Sales Order Status (Doughnut Chart)
-            var ctx4 = document.getElementById('soStatusChart').getContext('2d');
-            new Chart(ctx4, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Delivered', 'To Deliver', 'Cancelled'],
-                    datasets: [{
-                        data: [60, 30, 10], // Dummy percentages
-                        backgroundColor: [
-                            'rgba(0, 123, 255, 0.7)',  // Blue
-                            'rgba(23, 162, 184, 0.7)', // Teal
-                            'rgba(108, 117, 125, 0.7)' // Grey
-                        ],
-                        borderColor: [
-                            'rgba(0, 123, 255, 1)',
-                            'rgba(23, 162, 184, 1)',
-                            'rgba(108, 117, 125, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    title: {
-                        display: true,
-                        text: 'Sales Order Status Breakdown'
-                    }
-                }
-            });
-        });
-    </script>
-</body>
-</html>
