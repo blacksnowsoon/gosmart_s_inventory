@@ -95,7 +95,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-06-27 21:16:47.179167",
+ "modified": "2025-06-28 18:26:36.855218",
  "modified_by": "Administrator",
  "module": "Inventory Commercial Documents",
  "name": "Purchase Order",
@@ -125,7 +125,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Inventory Manager",
+   "role": "Purchase Manager",
    "share": 1,
    "submit": 1,
    "write": 1
@@ -137,10 +137,27 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Inventory User",
+   "role": "Purchase User",
    "share": 1,
-   "submit": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Inventory Manager",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Inventory User",
+   "share": 1
   },
   {
    "email": 1,
