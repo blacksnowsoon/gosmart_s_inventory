@@ -49,9 +49,11 @@
    "columns": 1,
    "fetch_from": "item_code.unit",
    "fieldname": "unit",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Unit"
+   "label": "Unit",
+   "options": "Unit",
+   "read_only": 1
   },
   {
    "columns": 1,
@@ -85,7 +87,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-06-28 18:30:34.723849",
+ "modified": "2025-06-28 21:23:17.909584",
  "modified_by": "Administrator",
  "module": "Inventory Commercial Documents",
  "name": "Purchase Order Item",
