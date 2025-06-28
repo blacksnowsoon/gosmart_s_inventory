@@ -16,6 +16,7 @@
   "posting_time",
   "reference_document_type",
   "reference_document_name",
+  "get_items",
   "section_break_rcxj",
   "items"
  ],
@@ -102,13 +103,19 @@
    "fieldtype": "Dynamic Link",
    "label": "Reference Document Name",
    "options": "reference_document_type"
+  },
+  {
+   "fieldname": "get_items",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Get Items"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-06-28 13:43:26.061323",
+ "modified": "2025-06-28 18:56:09.618862",
  "modified_by": "Administrator",
  "module": "Inventory Transactions",
  "name": "Stock Entry",

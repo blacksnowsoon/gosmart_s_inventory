@@ -42,7 +42,8 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Draft\nSubmitted\nTo Deliver\nDelivered\nTo Bill\nBilled\nCancelled"
+   "options": "Draft\nSubmitted\nTo Deliver\nDelivered\nTo Bill\nBilled\nCancelled",
+   "read_only": 1
   },
   {
    "description": "Sum of all item amounts.",
@@ -98,7 +99,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-06-28 18:27:45.651636",
+ "modified": "2025-06-28 18:36:23.986066",
  "modified_by": "Administrator",
  "module": "Inventory Commercial Documents",
  "name": "Sales Order",
