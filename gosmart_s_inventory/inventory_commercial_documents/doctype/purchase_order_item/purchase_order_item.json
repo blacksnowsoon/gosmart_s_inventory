@@ -9,11 +9,11 @@
  "field_order": [
   "item_code",
   "item_name",
-  "quy",
+  "qty",
   "unit",
   "rate",
   "amount",
-  "received_quy"
+  "received_qty"
  ],
  "fields": [
   {
@@ -38,15 +38,6 @@
   },
   {
    "columns": 1,
-   "fieldname": "quy",
-   "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "QUY",
-   "non_negative": 1,
-   "precision": "2"
-  },
-  {
-   "columns": 1,
    "fetch_from": "item_code.unit",
    "fieldname": "unit",
    "fieldtype": "Link",
@@ -62,8 +53,7 @@
    "fieldtype": "Currency",
    "in_list_view": 1,
    "label": "Rate",
-   "non_negative": 1,
-   "reqd": 1
+   "non_negative": 1
   },
   {
    "columns": 1,
@@ -76,10 +66,20 @@
    "read_only": 1
   },
   {
-   "fieldname": "received_quy",
+   "columns": 1,
+   "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Received QUY",
+   "label": "QTY",
+   "non_negative": 1,
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "fieldname": "received_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Received QTY",
    "read_only": 1
   }
  ],
@@ -87,7 +87,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-06-28 21:23:17.909584",
+ "modified": "2025-06-29 23:48:15.814491",
  "modified_by": "Administrator",
  "module": "Inventory Commercial Documents",
  "name": "Purchase Order Item",

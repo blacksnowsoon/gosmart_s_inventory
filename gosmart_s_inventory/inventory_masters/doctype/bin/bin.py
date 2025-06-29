@@ -1,35 +1,39 @@
 # Copyright (c) 2025, Gharieb Khalifa and contributors
 # For license information, please see license.txt
+
 from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
-
+from frappe.utils import flt
 
 class Bin(Document):
-	def update_stock(self, qty):
-		if not self.item_code or not self.warehouse:
-			frappe.throw(_("Item Code and Warehouse are required to update stock."))
-
-		if not self.actual_qty:
-			self.actual_qty = 0
+	def before_save(self):
+		"""
+		Recalculates the Projected  quantity before saving the Bin document.
+		"""
+		self.Projected_qty = flt(self.actaul_qty) + flt(self.ordered_qty) - flt(self.reserved_qty)
 		
-		self.actual_qty += qty
-		if self.actual_qty < 0:
-			frappe.throw(_("Insufficient stock for item {0} in warehouse {1}.").format(self.item_code, self.warehouse))
-		self.save()
 
-		# Update the item stock
-		self.update_item_stock()
+	
+@frappe.whitelist()
+def update_bin_for_stock_entry(item_code, warehouse):
+	"""
+	Updates the 'actual_qty' in a Bin based on all Stock Ledger Entries.
+    This function should be called after a Stock Entry is submitted or cancelled.
+	"""
+	if not frappe.db.exists("Bin", {"item_code": item_code, "warehouse": warehouse}):
+		bin_doc = frappe.new_doc("Bin")
+		bin_doc.item_code = item_code
+		bin_doc.warehouse = warehouse
+		bin_doc.insert()
+	actual_qty = frappe.db.sql("""
+		SELECT SUM(qty_change) FROM `tabStock Ledger Entry`
+		WHERE item_code = %s AND warehouse = %s AND is_cancelled = 0
+	""", (item_code, warehouse), as_list=True)
+	actual_qty_val = flt(actual_qty[0][0]) if actual_qty and actual_qty[0] else 0
 
-	def update_item_stock(self):
+	frappe.db.set_value("Bin", {"item_code": item_code, "warehouse": warehouse}, "actual_qty", actual_qty_val)
 
-		item = frappe.get_doc("Item", self.item_code)
-		item.current_stock = self.get_total_stock()
-		item.save()
-
-	def get_total_stock(self):
-		total_stock = frappe.db.sql("""
-			SELECT SUM(actual_qty) FROM `tabBin`
-			WHERE item_code = %s AND warehouse = %s
-		""", (self.item_code, self.warehouse))
-		return total_stock[0][0] if total_stock else 0
+	# After updating the actaul_qty, save the bin to trigger recalculation of ordered_qty
+	bin_doc = frappe.get_doc("Bin", {"item_code": item_code, "warehouse": warehouse})
+	bin_doc.save(ignore_permissions=True)

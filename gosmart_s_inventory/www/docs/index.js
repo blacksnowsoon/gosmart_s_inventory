@@ -6,7 +6,7 @@ $(document).ready(function() {
     
     $('body').scrollspy({
         target: '.sidebar',
-        offset: 80 // Adjust offset based on navbar height
+       // offset: 60  Adjust offset based on navbar height
     });
 
     // Smooth scrolling for sidebar links and top navbar links
@@ -15,7 +15,7 @@ $(document).ready(function() {
             event.preventDefault();
             var hash = this.hash;
             $('html, body').animate({
-                scrollTop: $(hash).offset().top - 70 // Adjust for fixed navbar height
+                scrollTop: $(hash).offset().top - 10 // Adjust for fixed navbar height
             }, 800, function(){
                 window.location.hash = hash;
             });

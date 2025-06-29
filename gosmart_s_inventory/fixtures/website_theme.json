@@ -1,0 +1,28 @@
+[
+ {
+  "background_color": null,
+  "button_gradients": 1,
+  "button_rounded_corners": 1,
+  "button_shadows": 1,
+  "custom": 1,
+  "custom_overrides": ".btn-primary {\r\n    background: #0575E6;  /* fallback for old browsers */\r\n    background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */\r\n    background: linear-gradient(to right, #021B79, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */\r\n    color:white;\r\n}",
+  "custom_scss": null,
+  "dark_color": null,
+  "docstatus": 0,
+  "doctype": "Website Theme",
+  "font_properties": "wght@300;400;500;600;700;800",
+  "font_size": "18",
+  "google_font": "cairo",
+  "ignored_apps": [],
+  "js": null,
+  "light_color": null,
+  "modified": "2025-06-29 10:03:31.808437",
+  "module": "Website",
+  "name": "Go Smart",
+  "primary_color": null,
+  "text_color": null,
+  "theme": "Go Smart",
+  "theme_scss": "\n@import url(\"https://fonts.googleapis.com/css2?family=cairo:wght@300;400;500;600;700;800&display=swap\");\n// backward compatibility. deprecated in v15\n$font-family-sans-serif: \"cairo\", \"InterVariable\", \"Inter\", -apple-system, BlinkMacSystemFont,\n\t\"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\",\n\t\"Droid Sans\", \"Helvetica Neue\", sans-serif;\n\n// override font stack if custom font is set in website theme\n:root {\n\t--font-stack: \"cairo\", \"InterVariable\", \"Inter\", -apple-system, BlinkMacSystemFont,\n\t\"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\",\n\t\"Droid Sans\", \"Helvetica Neue\", sans-serif !important;\n}\n$enable-shadows: true;\n$enable-gradients: true;\n$enable-rounded: true;\n\n// Bootstrap Variable Overrides\n.btn-primary {\r\n    background: #0575E6;  /* fallback for old browsers */\r\n    background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */\r\n    background: linear-gradient(to right, #021B79, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */\r\n    color:white;\r\n}\n\n// Import themes from installed apps\n@import \"frappe/public/scss/website.bundle\";\n\nbody {\n\tfont-size: 18;\n}\n\n// Custom Theme\n\n\n:root {\n\t}\n",
+  "theme_url": "/files/website_theme/go_smart_94ae851a.css"
+ }
+]

@@ -9,11 +9,11 @@
  "field_order": [
   "item_name",
   "item_code",
-  "quy",
+  "qty",
   "unit",
   "rate",
   "amount",
-  "delivered_quy"
+  "delivered_qty"
  ],
  "fields": [
   {
@@ -33,15 +33,6 @@
    "in_list_view": 1,
    "label": "Item Code",
    "read_only": 1
-  },
-  {
-   "columns": 1,
-   "fieldname": "quy",
-   "fieldtype": "Float",
-   "in_list_view": 1,
-   "label": "QUY",
-   "non_negative": 1,
-   "precision": "2"
   },
   {
    "columns": 1,
@@ -73,10 +64,19 @@
   },
   {
    "columns": 1,
-   "fieldname": "delivered_quy",
+   "fieldname": "qty",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Delivered QUY",
+   "label": "QTY",
+   "non_negative": 1,
+   "precision": "2"
+  },
+  {
+   "columns": 1,
+   "fieldname": "delivered_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Delivered QTY",
    "read_only": 1
   }
  ],
@@ -84,7 +84,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-06-28 12:20:18.663625",
+ "modified": "2025-06-29 23:49:41.382364",
  "modified_by": "Administrator",
  "module": "Inventory Commercial Documents",
  "name": "Sales Order Item",

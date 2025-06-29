@@ -1,8 +1,8 @@
 
-/* @font-face {
+@font-face {
     font-family: 'cairo';
     src: url('/assets/gosmart_s_inventory/fonts/Cairo-Regular.ttf');
-} */
+}
 
 body {
     font-family: 'cairo', Arial, Helvetica, sans-serif;
@@ -43,18 +43,14 @@ body {
     position: absolute;
     inset: 0;
 }
-.docs {
-    padding: 20px;
-    min-height: calc(100vh - 56px); 
-}
-.sidebar {
-    border-right: 1px solid #e9ecef;
-    min-height: calc(100vh - 50px); 
+
+.sidebar-sticky {
+    position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0;
-    z-index: 1000;
-    top: 50px; 
-   
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .sidebar .nav-link {
     color: #495057;

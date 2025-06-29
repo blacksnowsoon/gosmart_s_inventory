@@ -6,10 +6,12 @@
  "engine": "InnoDB",
  "field_order": [
   "item_code",
+  "item_name",
   "warehouse",
-  "actual_quy",
-  "reserved_quy",
-  "ordered_quy",
+  "actual_qty",
+  "reserved_qty",
+  "ordered_qty",
+  "projected_qty",
   "valuation_rate",
   "column_break_zfmy"
  ],
@@ -31,21 +33,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "actual_quy",
-   "fieldtype": "Float",
-   "label": "Actual QUY"
-  },
-  {
-   "fieldname": "reserved_quy",
-   "fieldtype": "Float",
-   "label": "Reserved QUY"
-  },
-  {
-   "fieldname": "ordered_quy",
-   "fieldtype": "Float",
-   "label": "Ordered QUY"
-  },
-  {
    "fieldname": "valuation_rate",
    "fieldtype": "Currency",
    "label": "Valuation Rate"
@@ -53,12 +40,44 @@
   {
    "fieldname": "column_break_zfmy",
    "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "item_code.item_name",
+   "fetch_if_empty": 1,
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "actual_qty",
+   "fieldtype": "Float",
+   "label": "Actual QTY",
+   "precision": "2"
+  },
+  {
+   "fieldname": "reserved_qty",
+   "fieldtype": "Float",
+   "label": "Reserved QTY",
+   "precision": "2"
+  },
+  {
+   "fieldname": "ordered_qty",
+   "fieldtype": "Float",
+   "label": "Ordered QTY",
+   "precision": "2"
+  },
+  {
+   "fieldname": "projected_qty",
+   "fieldtype": "Float",
+   "label": "Projected QTY",
+   "precision": "2",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-28 20:56:51.912298",
+ "modified": "2025-06-30 01:58:03.326371",
  "modified_by": "Administrator",
  "module": "Inventory Masters",
  "name": "Bin",
