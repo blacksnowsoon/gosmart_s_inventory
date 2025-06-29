@@ -2,7 +2,7 @@ const footer_content =
 `<div class="navbar fixed-bottom navbar-default border-top">
   <div class="container">
     <div>
-      <small class="">Simple Inventory Management Version 1.0.0</small><br>
+      <small class="">Simple Inventory Management v1.0.0</small><br>
       
     </div>
     <div><small class="">© 2025 GO Smart Soultion. All rights reserved.</small></div>

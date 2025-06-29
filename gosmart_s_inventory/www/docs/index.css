@@ -1,8 +1,8 @@
-/* Base styles */
-@font-face {
+
+/* @font-face {
     font-family: 'cairo';
-    src: url('/assets/adabia_port/fonts/Cairo-Regular.ttf');
-}
+    src: url('/assets/gosmart_s_inventory/fonts/Cairo-Regular.ttf');
+} */
 
 body {
     font-family: 'cairo', Arial, Helvetica, sans-serif;

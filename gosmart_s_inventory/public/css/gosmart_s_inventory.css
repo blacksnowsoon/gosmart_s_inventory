@@ -1,3 +1,15 @@
+/* Base styles */
+@font-face {
+    font-family: 'cairo';
+    src: url('/assets/gosmart_s_inventory/fonts/Cairo-Regular.ttf');
+}
+body {
+    font-family: 'cairo', Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
 .page-container {
     margin-bottom: 2rem;
     padding-bottom: 2.5rem;
