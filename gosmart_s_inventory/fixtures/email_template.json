@@ -1,0 +1,12 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Email Template",
+  "modified": "2025-06-30 17:31:06.271833",
+  "name": "Go Smart Inventory Management",
+  "response": null,
+  "response_html": "<div style=\"direction: rtl;\">\r\n    \r\n\r\n<p >\r\n\t{{_(\"مرحبا\")}} {{ first_name }}{% if last_name %} {{ last_name}}{% endif %},\r\n</p>\r\n\r\n{% set site_link = \"<a href='\" + site_url + \"'>\" + site_url + \"</a>\" %}\r\n\r\n<p>{{_(\"لقد تم انشاء حسابك علي تطبيق ادارة المخزون {0}\").format(site_link)}}.</p>\r\n\r\n<p>{{_(\"اسم المستخدم الخاص بك هو\")}}: <b>{{ user }}</b>\r\n\r\n\r\n<p>{{_(\"اضغط علي زر استكمال التسجيل لتعيين كلمة المرور الخاصة بك\")}}.</p>\r\n\r\n<p style=\"margin: 15px 0px;\">\r\n\t<a href=\"{{ link }}\" rel=\"nofollow\" class=\"btn btn-primary\">{{ _(\"استكمال التسجيل\") }}</a>\r\n</p>\r\n\r\n<small>{{_(\"\")}}</small>\r\n\r\n{% if created_by != \"Administrator\" %}\r\n    <br>\r\n    <p style=\"margin-top: 15px\">\r\n    \t{{_(\"شكرا\")}},<br>\r\n    \t{{ created_by }}\r\n    </p>\r\n{% endif %}\r\n<br>\r\n<p>\r\n\t{{_(\"أو يمكنك نسخ هذا الرابط الي المتصفح\")}}<br>\r\n\t<a href=\"{{ link }}\">{{ link }}</a>\r\n</p>\r\n</div>",
+  "subject": "New Account",
+  "use_html": 1
+ }
+]

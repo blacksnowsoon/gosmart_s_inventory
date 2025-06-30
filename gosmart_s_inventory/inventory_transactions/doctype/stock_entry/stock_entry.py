@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 from frappe import _
+from gosmart_s_inventory.inventory_masters.doctype.bin.bin import update_bin_for_stock_entry
 
 
 class StockEntry(Document):
@@ -79,7 +80,6 @@ class StockEntry(Document):
     :param warehouse: The warehouse where the stock change occurs.
     :param is_cancellation: A flag to indicate if this is a cancellation entry.
     """
-    frappe.errprint(f"Creating Stock Ledger Entry for Item: {item_row.item_code}, Warehouse: {warehouse}, Qty Change: {qty}, Is Cancellation: {is_cancellation}")
     if not item_row or not warehouse:
       frappe.throw(f"A warehouse is required for item {item_row.item_code}.")
 
@@ -99,7 +99,7 @@ class StockEntry(Document):
     sle.save(ignore_permissions=True)
 
     # Update the Bin for the item and warehouse
-    update_bin_for_stock_entry(item_code, warehouse)
+    update_bin_for_stock_entry(item_row.item_code, warehouse)
 
 
   def update_reference_documents(self):

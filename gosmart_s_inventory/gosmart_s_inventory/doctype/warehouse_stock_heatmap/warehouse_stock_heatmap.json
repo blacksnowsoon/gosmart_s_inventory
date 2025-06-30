@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-06-30 20:04:50.760007",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "heatmap_data"
+ ],
+ "fields": [
+  {
+   "fieldname": "heatmap_data",
+   "fieldtype": "JSON",
+   "hidden": 1,
+   "label": "Heatmap Data",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-06-30 20:06:05.849125",
+ "modified_by": "Administrator",
+ "module": "Gosmart S Inventory",
+ "name": "Warehouse Stock Heatmap",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

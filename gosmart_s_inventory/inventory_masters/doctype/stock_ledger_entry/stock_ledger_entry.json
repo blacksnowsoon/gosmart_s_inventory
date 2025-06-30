@@ -5,6 +5,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "section_break_ayat",
   "item_code",
   "warehouse",
   "qty_change",
@@ -33,6 +34,7 @@
    "in_list_view": 1,
    "label": "Warehouse",
    "options": "Warehouse",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -40,6 +42,7 @@
    "fieldtype": "Date",
    "in_list_view": 1,
    "label": "Posting Date",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -47,13 +50,16 @@
    "fieldtype": "Time",
    "in_list_view": 1,
    "label": "Posting Time",
+   "read_only": 1,
    "reqd": 1
   },
   {
+   "description": "Updated automatically via system transactions",
    "fieldname": "qty_change",
    "fieldtype": "Float",
    "label": "QTY Change",
    "precision": "2",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -73,17 +79,20 @@
    "fieldname": "stock_entry",
    "fieldtype": "Link",
    "label": "Stock Entry",
-   "options": "Stock Entry"
+   "options": "Stock Entry",
+   "read_only": 1
   },
   {
    "fieldname": "stock_entry_item",
    "fieldtype": "Data",
-   "label": "Stock Entry Item"
+   "label": "Stock Entry Item",
+   "read_only": 1
   },
   {
    "fieldname": "purpose",
    "fieldtype": "Data",
-   "label": "Purpose"
+   "label": "Purpose",
+   "read_only": 1
   },
   {
    "default": "0",
@@ -94,12 +103,17 @@
   {
    "fieldname": "column_break_nnju",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ayat",
+   "fieldtype": "Section Break",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-29 23:34:57.371526",
+ "modified": "2025-06-30 18:32:27.050894",
  "modified_by": "Administrator",
  "module": "Inventory Masters",
  "name": "Stock Ledger Entry",
