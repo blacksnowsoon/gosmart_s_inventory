@@ -16,6 +16,17 @@ fixtures = [
     "Print Settings",
     "Navbar Settings",
     {
+        "dt": "Workspace", "filters": {
+            "name": ["in", [
+                "Inventory Transactions",
+                "Inventory Masters",
+                "Inventory Management",
+                "Purchases",
+                "Sales"
+            ]]
+        }
+    },
+    {
         "dt": "Email Account", "filters": {
             "name": ["=", "Go Smart Inventory Management"]
         }
