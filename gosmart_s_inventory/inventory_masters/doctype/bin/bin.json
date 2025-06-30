@@ -22,6 +22,7 @@
    "in_list_view": 1,
    "label": "Item Code",
    "options": "Item",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -30,6 +31,7 @@
    "in_list_view": 1,
    "label": "Warehouse",
    "options": "Warehouse",
+   "read_only": 1,
    "reqd": 1
   },
   {
@@ -46,21 +48,26 @@
    "fetch_if_empty": 1,
    "fieldname": "item_name",
    "fieldtype": "Data",
-   "label": "Item Name"
+   "label": "Item Name",
+   "read_only": 1
   },
   {
+   "description": "Updated automatically via system transactions",
    "fieldname": "actual_qty",
    "fieldtype": "Float",
    "label": "Actual QTY",
-   "precision": "2"
+   "precision": "2",
+   "read_only": 1
   },
   {
+   "description": "update it only if using manual reservations",
    "fieldname": "reserved_qty",
    "fieldtype": "Float",
    "label": "Reserved QTY",
    "precision": "2"
   },
   {
+   "description": "update it only if using manual orders",
    "fieldname": "ordered_qty",
    "fieldtype": "Float",
    "label": "Ordered QTY",
@@ -77,7 +84,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-30 01:58:03.326371",
+ "modified": "2025-06-30 18:34:16.887085",
  "modified_by": "Administrator",
  "module": "Inventory Masters",
  "name": "Bin",

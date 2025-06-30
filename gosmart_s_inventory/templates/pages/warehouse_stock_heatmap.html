@@ -1,0 +1,69 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<div class="heatmap-container">
+    <div id="warehouse-stock-heatmap" style="width: 100%; height: 600px;"></div>
+</div>
+
+<script>
+frappe.ready(() => {
+    const heatmapData = JSON.parse('{{ heatmap_data }}');
+    
+    const chart = echarts.init(document.getElementById('warehouse-stock-heatmap'));
+    
+    const option = {
+        tooltip: {
+            position: 'top',
+            formatter: (params) => {
+                return `
+                    <strong>${heatmapData.yAxis.data[params.value[1]]}</strong><br/>
+                    ${heatmapData.xAxis.data[params.value[0]]}<br/>
+                    Stock: <b>${params.value[2]}</b>
+                `;
+            }
+        },
+        grid: {
+            top: '5%',
+            left: '3%',
+            right: '7%',
+            bottom: '12%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            data: heatmapData.xAxis.data,
+            splitArea: { show: true },
+            axisLabel: { rotate: 45 }
+        },
+        yAxis: {
+            type: 'category',
+            data: heatmapData.yAxis.data,
+            splitArea: { show: true }
+        },
+        visualMap: {
+            min: 0,
+            max: Math.max(...heatmapData.data.map(d => d[2])) || 10,
+            calculable: true,
+            orient: 'horizontal',
+            left: 'center',
+            bottom: '0%',
+            inRange: {
+                color: ['#ebedf0', '#c6e48b', '#7bc96f', '#239a3b', '#196127']
+            }
+        },
+        series: [{
+            name: 'Stock Level',
+            type: 'heatmap',
+            data: heatmapData.data,
+            label: { show: false },
+            emphasis: {
+                itemStyle: { shadowBlur: 10, shadowColor: 'rgba(0, 0, 0, 0.5)' }
+            }
+        }]
+    };
+    
+    chart.setOption(option);
+    window.addEventListener('resize', () => chart.resize());
+});
+</script>
+{% endblock %}
