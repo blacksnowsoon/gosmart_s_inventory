@@ -27,11 +27,6 @@ fixtures = [
         }
     },
     {
-        "dt": "Email Account", "filters": {
-            "name": ["=", "Go Smart Inventory Management"]
-        }
-    },
-    {
         "dt":"Role", "filters" : { 
             "name":["in", [
                 "Inventory Viewer",
