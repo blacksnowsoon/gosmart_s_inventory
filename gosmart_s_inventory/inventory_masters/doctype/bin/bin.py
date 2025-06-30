@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 from frappe.utils import flt
-
+from frappe import whitelist
 class Bin(Document):
 	def before_save(self):
 		"""
@@ -15,7 +15,7 @@ class Bin(Document):
 		
 
 	
-@frappe.whitelist()
+@whitelist()
 def update_bin_for_stock_entry(item_code, warehouse):
 	"""
 	Updates the 'actual_qty' in a Bin based on all Stock Ledger Entries.

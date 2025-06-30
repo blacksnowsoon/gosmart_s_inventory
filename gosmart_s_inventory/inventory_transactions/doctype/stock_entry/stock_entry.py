@@ -46,29 +46,29 @@ class StockEntry(Document):
   def update_stock_ledger(self):
     for item_row in self.items:
       if self.entry_type == "Material Receipt":
-        self.make_stock_ledger_entry(item_row, self.to_warehouse, item.qty)
+        self.make_stock_ledger_entry(item_row, self.to_warehouse, item_row.qty)
       elif self.entry_type == "Material Issue":
-        self.make_stock_ledger_entry(item_row, self.from_warehouse, -item.qty)
+        self.make_stock_ledger_entry(item_row, self.from_warehouse, -item_row.qty)
       elif self.entry_type == "Stock Transfer":
-        self.make_stock_ledger_entry(item_row, self.from_warehouse, -item.qty)
-        self.make_stock_ledger_entry(item_row, self.to_warehouse, item.qty)
+        self.make_stock_ledger_entry(item_row, self.from_warehouse, -item_row.qty)
+        self.make_stock_ledger_entry(item_row, self.to_warehouse, item_row.qty)
       elif self.entry_type == "Stock Adjustment":
-        self.make_stock_ledger_entry(item_row, self.to_warehouse, item.qty)
+        self.make_stock_ledger_entry(item_row, self.to_warehouse, item_row.qty)
 
   def reverse_stock_effects(self):
     for item_row in self.items:
       if self.entry_type == "Material Receipt":
-        self.make_stock_ledger_entry(item_row, self.to_warehouse, -item.qty, is_cancellation=True)
+        self.make_stock_ledger_entry(item_row, self.to_warehouse, -item_row.qty, is_cancellation=True)
 
       elif self.entry_type == "Material Issue":
-        self.make_stock_ledger_entry(item_row, self.from_warehouse, item.qty, is_cancellation=True)
+        self.make_stock_ledger_entry(item_row, self.from_warehouse, item_row.qty, is_cancellation=True)
 
       elif self.entry_type == "Stock Transfer":
-        self.make_stock_ledger_entry(item_row, self.from_warehouse, item.qty, is_cancellation=True)
-        self.make_stock_ledger_entry(item_row, self.to_warehouse, -item.qty, is_cancellation=True)
+        self.make_stock_ledger_entry(item_row, self.from_warehouse, item_row.qty, is_cancellation=True)
+        self.make_stock_ledger_entry(item_row, self.to_warehouse, -item_row.qty, is_cancellation=True)
 
       elif self.entry_type == "Stock Adjustment":
-        self.make_stock_ledger_entry(item, self.to_warehouse, -item.qty, is_cancellation=True)
+        self.make_stock_ledger_entry(item_row, self.to_warehouse, -item_row.qty, is_cancellation=True)
 
 
   def make_stock_ledger_entry(self, item_row, warehouse, qty, is_cancellation=False):
@@ -79,8 +79,9 @@ class StockEntry(Document):
     :param warehouse: The warehouse where the stock change occurs.
     :param is_cancellation: A flag to indicate if this is a cancellation entry.
     """
-    if not item_row or not warehouse or qty <= 0:
-      frappe.throw(f"A warehouse is required for item {item_row.item_name}.")
+    frappe.errprint(f"Creating Stock Ledger Entry for Item: {item_row.item_code}, Warehouse: {warehouse}, Qty Change: {qty}, Is Cancellation: {is_cancellation}")
+    if not item_row or not warehouse:
+      frappe.throw(f"A warehouse is required for item {item_row.item_code}.")
 
     # Create the Stock Ledger Entry
     sle = frappe.new_doc("Stock Ledger Entry")
@@ -126,7 +127,6 @@ class StockEntry(Document):
         so_item.delivered_qty += item.qty
     so.update_status()
     so.save()
-
   
   def update_status(self):
     if self.docstatus == 0:

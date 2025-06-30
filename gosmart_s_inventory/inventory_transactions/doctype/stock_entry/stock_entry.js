@@ -47,7 +47,7 @@ frappe.ui.form.on("Stock Entry Item", {
     item_code: function(frm, cdt, cdn) {
         update_item_details(frm, cdt, cdn);
     },
-    quy: function(frm, cdt, cdn) {
+    qty: function(frm, cdt, cdn) {
         calculate_amount(frm, cdt, cdn);
     },
     rate: function(frm, cdt, cdn) {
@@ -58,10 +58,7 @@ frappe.ui.form.on("Stock Entry Item", {
 // ===== HELPER FUNCTIONS =====
 function setup_item_handlers(frm) {
     // Remove previous handlers to avoid duplicates
-    console.log("frm.fields_dict.items:", frm.fields_dict.items);
-console.log("frm.fields_dict.items.grid:", frm.fields_dict.items.grid);
-console.log("frm.fields_dict.items.grid.get_docfield('quy'):", frm.fields_dict.items.grid.get_docfield('quy'));
-    frm.fields_dict.items.grid.get_docfield('quy').df.onchange = null;
+    frm.fields_dict.items.grid.get_docfield('qty').df.onchange = null;
     frm.fields_dict.items.grid.get_docfield('rate').df.onchange = null;
     
     // Manually trigger calculation for existing rows
@@ -72,7 +69,7 @@ console.log("frm.fields_dict.items.grid.get_docfield('quy'):", frm.fields_dict.i
 
 function calculate_amount(frm, cdt, cdn) {
     const row = frappe.get_doc(cdt, cdn);
-    const amount = flt(row.quy) * flt(row.rate) || 0;
+    const amount = flt(row.qty) * flt(row.rate) || 0;
     
     frappe.model.set_value(cdt, cdn, 'amount', amount).then(() => {
         // Update grand total after all calculations

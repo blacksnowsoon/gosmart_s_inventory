@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:{SEI}-{item_code}-{#######}",
  "creation": "2025-06-28 11:18:09.303943",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -22,7 +23,8 @@
    "in_list_view": 1,
    "label": "Item Code",
    "options": "Item",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "columns": 3,
@@ -81,10 +83,11 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-06-29 23:48:59.041702",
+ "modified": "2025-06-30 03:21:02.550828",
  "modified_by": "Administrator",
  "module": "Inventory Transactions",
  "name": "Stock Entry Item",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",
