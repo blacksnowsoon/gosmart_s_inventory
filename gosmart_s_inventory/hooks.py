@@ -49,6 +49,13 @@ fixtures = [
         "dt": "Website Theme", "filters": {
             "name": ["=", "Go Smart"]
         }
+    },
+    {
+        "dt": "File", "filters": {
+            "file_url": ["in", [
+                "/assets/gosmart_s_inventory/go-150-170.png",
+            ]]
+        }
     }
 ]
 # Each item in the list will be shown as an app in the apps page
