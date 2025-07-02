@@ -6,6 +6,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import flt
 
+
 class PurchaseOrder(Document):
 	def validate(self):
 		self.validate_dates()
@@ -17,6 +18,9 @@ class PurchaseOrder(Document):
 
 	def validate_items(self):
 		for item in self.items:
+			if not item.to_warehouse:
+				frappe.throw(_("Warehouse is required for item {0} in Purchase Order {1}.").format(item.item_code, self.name))
+			# Ensure item qty is greater than zero
 			if not item.qty or flt(item.qty) <= 0:
 				frappe.throw(_("Quantity must be greater than zero for item {0}.").format(item.item_code))
 	
@@ -37,36 +41,45 @@ class PurchaseOrder(Document):
         :param multiplier: 1 for submission, -1 for cancellation.
 		"""
 		for item in self.items:
-			if not item.warehouse:
-				frappe.throw(_(f"Warehouse is required for item {item.item_code} in Purchase Order {self.name}"))
 			
-			bin_doc = frappe.get_doc("Bin", {"item_code": item.item_code, "warehouse": item.warehouse})
-			if not bin_doc:
+			if not frappe.db.exists("Bin", {"item_code": item.item_code, "warehouse": item.to_warehouse}):
+				# If Bin does not exist, create a new one
+				
 				bin_doc = frappe.new_doc("Bin")
 				bin_doc.item_code = item.item_code
-				bin_doc.warehouse = item.warehouse
+				bin_doc.warehouse = item.to_warehouse
+				bin_doc.ordered_qty = flt(item.qty) * multiplier
+				# Set other fields as necessary, e.g., actual_qty, reserved_qty, etc
 				bin_doc.insert(ignore_permissions=True)
-			
-			ordered_qty_change = flt(item.qty) * multiplier
-			frappe.db.sql("""
-				UPDATE `tabBin`
-				SET ordered_qty = ordered_qty + %s
-				WHERE item_code = %s AND warehouse = %s
-			""", (ordered_qty_change, item.item_code, item.warehouse))
-
-			# Recalculate projected quantity for the updated Bin
-			bin_doc = frappe.get_doc("Bin", {"item_code": item.item_code, "warehouse": item.warehouse})
+			else:
+				bin_doc = frappe.get_doc("Bin", {"item_code": item.item_code, "warehouse": item.to_warehouse})
+				
+				ordered_qty_change = flt(item.qty) * multiplier
+				bin_doc.ordered_qty += flt(bin_doc.ordered_qty) + ordered_qty_change
 			bin_doc.save(ignore_permissions=True)
 
+	def on_update(self):
+		"""Set the status of the Purchase Order based on its items and docstatus."""
+		self.set_status()	
+	
 	def set_status(self):
+
+		# For draft documents, status is set to "Draft"
+		if self.docstatus == 0:
+			self.status = "Draft"
+			return
+		# For cancelled documents, status is set to "Cancelled"
+		if self.docstatus == 2:
+			self.status = "Cancelled"
+			return
+
+		# For submitted documents, we need to check the received quantities
+		# handle the status based on received quantities
+		# If all items are fully received, set status to "Received"
 		if all(flt(item.received_qty) >= flt(item.qty) for item in self.items):
 			self.status = "Received"
 		elif any(flt(item.received_qty) > 0 for item in self.items):
 			self.status = "Partially Received"
-		elif self.docstatus == 1:
-			self.status = "To Receive"
-		elif self.docstatus == 2:
-			self.status = "Cancelled"
 		else:
-			self.status = "Draft"
+			self.status = "To Receive"
 	

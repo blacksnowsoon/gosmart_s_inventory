@@ -231,7 +231,6 @@ home_page = "/home_page/"
 #
 # override_whitelisted_methods = {
 	# "frappe.desk.doctype.event.event.get_events": "gosmart_s_inventory.event.get_events"
-    # "frappe.desk.doctype.bin.bin.update_bin_for_stock_entry": "gosmart_s_inventory.bin.update_bin_for_stock_entry",
 # }
 #
 # each overriding function accepts a `data` argument;

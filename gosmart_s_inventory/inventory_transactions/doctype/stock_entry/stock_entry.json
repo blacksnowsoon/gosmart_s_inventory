@@ -12,6 +12,7 @@
   "from_warehouse",
   "to_warehouse",
   "total_amount",
+  "is_decrease",
   "column_break_nunx",
   "amended_from",
   "posting_date",
@@ -57,19 +58,19 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval:doc.entry_type === \"Material Issue\" || doc.entry_type === \"Stock Transfer\"",
+   "depends_on": "eval:(doc.entry_type === \"Material Issue\" || doc.entry_type === \"Stock Transfer\") && !doc.reference_document_type",
    "fieldname": "from_warehouse",
    "fieldtype": "Link",
    "label": "From Warehouse",
-   "mandatory_depends_on": "eval:doc.entry_type === \"Material Issue\" || doc.entry_type === \"Stock Transfer\"",
+   "mandatory_depends_on": "eval:(doc.entry_type === \"Material Issue\" || doc.entry_type === \"Stock Transfer\") && !doc.reference_document_type",
    "options": "Warehouse"
   },
   {
-   "depends_on": "eval:doc.entry_type === \"Stock Transfer\" || doc.entry_type === \"Material Receipt\" || doc.entry_type === \"Stock Adjustment\"",
+   "depends_on": "eval:(doc.entry_type === \"Stock Transfer\" || doc.entry_type === \"Material Receipt\" || doc.entry_type === \"Stock Adjustment\") && !doc.reference_document_type",
    "fieldname": "to_warehouse",
    "fieldtype": "Link",
    "label": "To Warehouse",
-   "mandatory_depends_on": "eval:doc.entry_type === \"Material Receipt\" || doc.entry_type === \"Stock Transfer\" || doc.entry_type === \"Stock Adjustment\"",
+   "mandatory_depends_on": "eval:(doc.entry_type === \"Material Receipt\" || doc.entry_type === \"Stock Transfer\" || doc.entry_type === \"Stock Adjustment\") && !doc.reference_document_type",
    "options": "Warehouse"
   },
   {
@@ -95,35 +96,47 @@
    "options": "Stock Entry Item"
   },
   {
+   "depends_on": "eval:(doc.entry_type === \"Material Receipt\" || doc.entry_type === \"Material Issue\") && (!doc.to_warehouse || !doc.from_warehouse)",
    "fieldname": "reference_document_type",
    "fieldtype": "Link",
    "label": "Reference Document Type",
    "options": "DocType"
   },
   {
+   "depends_on": "eval:doc.reference_document_type",
    "fieldname": "reference_document_name",
    "fieldtype": "Dynamic Link",
    "label": "Reference Document Name",
+   "mandatory_depends_on": "eval:doc.reference_document_type && (doc.entry_type === \"Material Receipt\" || doc.entry_type === \"Material Issue\")",
    "options": "reference_document_type"
   },
   {
+   "depends_on": "eval:doc.reference_document_name",
    "fieldname": "get_items",
    "fieldtype": "Button",
-   "hidden": 1,
    "label": "Get Items"
   },
   {
+   "depends_on": "eval:doc.total_amount > 0",
    "fieldname": "total_amount",
    "fieldtype": "Currency",
    "label": "Total Amount",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.entry_type === \"Stock Adjustment\"",
+   "description": "This will decrease the stock in the warehouse",
+   "fieldname": "is_decrease",
+   "fieldtype": "Check",
+   "label": "Is Decrease?"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-06-29 13:48:16.474771",
+ "modified": "2025-07-02 13:49:19.585434",
  "modified_by": "Administrator",
  "module": "Inventory Transactions",
  "name": "Stock Entry",
