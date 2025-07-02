@@ -14,10 +14,10 @@
   "amended_from",
   "order_date",
   "required_by_date",
-  "section_break_zopf",
-  "remarks",
   "section_break_ecet",
-  "items"
+  "items",
+  "section_break_zopf",
+  "remarks"
  ],
  "fields": [
   {
@@ -95,7 +95,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-06-29 02:03:50.434643",
+ "modified": "2025-07-01 12:59:30.297898",
  "modified_by": "Administrator",
  "module": "Inventory Commercial Documents",
  "name": "Purchase Order",

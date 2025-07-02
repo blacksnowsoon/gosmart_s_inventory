@@ -14,10 +14,10 @@
   "amended_from",
   "order_date",
   "delivery_date",
-  "section_break_vxvw",
-  "remarks",
   "section_break_unhi",
-  "items"
+  "items",
+  "section_break_vxvw",
+  "remarks"
  ],
  "fields": [
   {
@@ -99,7 +99,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-06-29 02:03:37.809869",
+ "modified": "2025-07-01 12:59:18.396344",
  "modified_by": "Administrator",
  "module": "Inventory Commercial Documents",
  "name": "Sales Order",

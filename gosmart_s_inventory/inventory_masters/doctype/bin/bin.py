@@ -33,5 +33,19 @@ def update_bin_for_stock_entry(item_code, warehouse):
 	bin_doc = frappe.get_doc("Bin", bin_name)
 	bin_doc.actual_qty = flt(actual_qty) if actual_qty else 0
 	bin_doc.projected_qty = flt(bin_doc.actual_qty) + flt(bin_doc.ordered_qty) - flt(bin_doc.reserved_qty)
-	bin_doc.save(ignore_permissions=True)	
+	bin_doc.save(ignore_permissions=True)
+	update_item_stock_level(item_code)
 
+@whitelist()
+def update_item_stock_level(item_code):
+	"""
+	Sums up the 'actual_qty' from all Bins for a given item
+    and updates the 'current_stock' field in the Item doctype.
+	"""
+	total_stock = frappe.db.sql("""
+        SELECT SUM(actual_qty)
+        FROM `tabBin`
+        WHERE item_code = %s
+    """, (item_code,), as_list=True)
+	total_stock_val = flt(total_stock[0][0]) if total_stock and total_stock[0] else 0
+	frappe.db.set_value("Item", item_code, "current_stock", total_stock_val, update_modified=False)

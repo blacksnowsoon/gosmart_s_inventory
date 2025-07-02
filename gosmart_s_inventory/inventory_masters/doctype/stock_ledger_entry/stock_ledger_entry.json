@@ -16,7 +16,7 @@
   "is_cancelled",
   "posting_date",
   "posting_time",
-  "current_qty",
+  "stock_level",
   "purpose"
  ],
  "fields": [
@@ -63,13 +63,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "current_qty",
-   "fieldtype": "Float",
-   "label": "Current QTY",
-   "precision": "2",
-   "read_only": 1
-  },
-  {
    "fieldname": "valuation_rate",
    "fieldtype": "Currency",
    "label": "Valuation Rate",
@@ -108,12 +101,19 @@
    "fieldname": "section_break_ayat",
    "fieldtype": "Section Break",
    "read_only": 1
+  },
+  {
+   "fieldname": "stock_level",
+   "fieldtype": "Float",
+   "label": "Stock Level",
+   "precision": "2",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-30 18:32:27.050894",
+ "modified": "2025-07-01 16:37:37.842450",
  "modified_by": "Administrator",
  "module": "Inventory Masters",
  "name": "Stock Ledger Entry",
